@@ -1,5 +1,10 @@
 import { ComponentExample } from "@/components/component-example";
 
 export default function Page() {
-return <ComponentExample />;
+    return (
+        <div className="h-screen w-full">
+                
+                
+        </div>
+    )
 }
