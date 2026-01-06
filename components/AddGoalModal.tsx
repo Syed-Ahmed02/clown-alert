@@ -75,3 +75,4 @@ export function AddGoalModal({ isOpen, onClose, onSuccess }: AddGoalModalProps) 
   );
 }
 
+
