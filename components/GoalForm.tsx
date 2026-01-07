@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -96,22 +97,22 @@ export function GoalForm({
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Goal Field */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-          <IconTarget className="w-4 h-4 text-purple-400" />
+        <Label className="flex items-center gap-2">
+          <IconTarget className="w-4 h-4 text-primary" />
           By Dec 31, 2026, I will...
-        </label>
+        </Label>
         <Textarea
           placeholder="Run a marathon, launch my startup, learn a new language..."
           value={goal.goal}
           onChange={(e) => updateGoal('goal', e.target.value)}
-          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 min-h-24 resize-none"
+          className="min-h-24 resize-none"
           maxLength={200}
         />
         <div className="flex justify-between text-xs">
-          <span className={goalError ? 'text-red-400' : 'text-transparent'}>
+          <span className={goalError ? 'text-destructive' : 'text-transparent'}>
             {goalError || 'placeholder'}
           </span>
-          <span className={`${isValidLength ? 'text-green-400' : charCount > 0 ? 'text-amber-400' : 'text-slate-500'}`}>
+          <span className={`${isValidLength ? 'text-green-400' : charCount > 0 ? 'text-amber-400' : 'text-muted-foreground'}`}>
             {charCount}/200
           </span>
         </div>
@@ -119,28 +120,28 @@ export function GoalForm({
 
       {/* Reminder Cadence */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
+        <Label className="flex items-center gap-2">
           <IconBell className="w-4 h-4 text-amber-400" />
           Reminder Cadence
-        </label>
+        </Label>
         <Select
           value={goal.reminderCadence || ''}
           onValueChange={(value) => updateGoal('reminderCadence', value || '')}
         >
-          <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white w-full h-10">
+          <SelectTrigger className="w-full h-10">
             <SelectValue>
               {goal.reminderCadence ? (
                 goal.reminderCadence === 'daily' ? 'Daily' : 'Weekly'
               ) : (
-                <span className="text-slate-500">Select how often to check in</span>
+                <span className="text-muted-foreground">Select how often to check in</span>
               )}
             </SelectValue>
           </SelectTrigger>
-          <SelectContent className="bg-slate-800 border-slate-700">
-            <SelectItem value="daily" className="text-slate-200 focus:bg-purple-500/20">
+          <SelectContent>
+            <SelectItem value="daily">
               Daily
             </SelectItem>
-            <SelectItem value="weekly" className="text-slate-200 focus:bg-purple-500/20">
+            <SelectItem value="weekly">
               Weekly
             </SelectItem>
           </SelectContent>
@@ -150,16 +151,16 @@ export function GoalForm({
       {/* Accountability Partners */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-            <IconMail className="w-4 h-4 text-pink-400" />
+          <Label className="flex items-center gap-2">
+            <IconMail className="w-4 h-4 text-accent" />
             Accountability Partners
-          </label>
+          </Label>
           <Button
             type="button"
             variant="ghost"
             size="sm"
             onClick={addPartner}
-            className="text-purple-400 hover:text-purple-300 hover:bg-purple-500/10"
+            className="text-primary hover:text-primary/80 hover:bg-accent"
           >
             <IconPlus className="w-4 h-4 mr-1" />
             Add Partner
@@ -167,7 +168,7 @@ export function GoalForm({
         </div>
 
         {goal.accountabilityPartners.length === 0 && (
-          <p className="text-xs text-slate-500 italic">
+          <p className="text-xs text-muted-foreground italic">
             No partners added. They&apos;ll be notified if you miss a check-in.
           </p>
         )}
@@ -175,45 +176,45 @@ export function GoalForm({
         {goal.accountabilityPartners.map((partner, partnerIndex) => (
           <div
             key={partnerIndex}
-            className="bg-slate-700/30 rounded-lg p-4 space-y-3 border border-slate-600/50"
+            className="bg-muted rounded-lg p-4 space-y-3 border border-border"
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-slate-400">Partner {partnerIndex + 1}</span>
+              <span className="text-xs text-muted-foreground">Partner {partnerIndex + 1}</span>
               <Button
                 type="button"
                 variant="ghost"
                 size="icon-xs"
                 onClick={() => removePartner(partnerIndex)}
-                className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                className="text-destructive hover:text-destructive/80 hover:bg-destructive/10"
               >
                 <IconX className="w-4 h-4" />
               </Button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label className="text-xs text-slate-400 flex items-center gap-1">
+                <Label className="text-xs flex items-center gap-1">
                   <IconMail className="w-3 h-3" />
                   Email
-                </label>
+                </Label>
                 <Input
                   type="email"
                   placeholder="friend@example.com"
                   value={partner.email}
                   onChange={(e) => updatePartner(partnerIndex, 'email', e.target.value)}
-                  className="bg-slate-600/50 border-slate-600 text-white placeholder:text-slate-500 h-9 text-sm"
+                  className="h-9 text-sm"
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-xs text-slate-400 flex items-center gap-1">
+                <Label className="text-xs flex items-center gap-1">
                   <IconPhone className="w-3 h-3" />
                   Phone
-                </label>
+                </Label>
                 <Input
                   type="tel"
                   placeholder="+1 (555) 123-4567"
                   value={partner.phone}
                   onChange={(e) => updatePartner(partnerIndex, 'phone', e.target.value)}
-                  className="bg-slate-600/50 border-slate-600 text-white placeholder:text-slate-500 h-9 text-sm"
+                  className="h-9 text-sm"
                 />
               </div>
             </div>
@@ -228,7 +229,7 @@ export function GoalForm({
             type="button"
             variant="outline"
             onClick={onCancel}
-            className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white"
+            className="flex-1"
           >
             Cancel
           </Button>
@@ -236,14 +237,14 @@ export function GoalForm({
         <Button
           type="submit"
           disabled={isSubmitting || !isValidLength}
-          className={`${showCancel ? 'flex-1' : 'w-full'} h-12 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold rounded-xl transition-all duration-200 hover:scale-[1.02] disabled:opacity-50 disabled:hover:scale-100`}
+          className={`${showCancel ? 'flex-1' : 'w-full'} h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-all duration-200 hover:scale-[1.02] disabled:opacity-50 disabled:hover:scale-100`}
         >
           {isSubmitting ? 'Saving...' : submitLabel}
         </Button>
       </div>
 
       {errors.submit && (
-        <p className="text-center text-red-400 text-sm">{errors.submit}</p>
+        <p className="text-center text-destructive text-sm">{errors.submit}</p>
       )}
     </form>
   );
