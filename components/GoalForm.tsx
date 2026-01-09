@@ -160,7 +160,7 @@ export function GoalForm({
             variant="ghost"
             size="sm"
             onClick={addPartner}
-            className="text-primary hover:text-primary/80 hover:bg-accent"
+            className="text-primary "
           >
             <IconPlus className="w-4 h-4 mr-1" />
             Add Partner

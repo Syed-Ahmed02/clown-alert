@@ -146,7 +146,7 @@ export function DashboardClient({ goals: initialGoals }: DashboardClientProps) {
               variant="ghost"
               size="sm"
               onClick={() => setIsAddGoalModalOpen(true)}
-              className="text-primary hover:text-primary/80 hover:bg-accent"
+              className="text-primary hover:text-primary/80 "
             >
               <IconPlus className="w-4 h-4 mr-1" />
               Add Goal

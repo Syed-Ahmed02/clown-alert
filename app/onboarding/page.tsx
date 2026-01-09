@@ -233,7 +233,7 @@ export default function OnboardingPage() {
                         variant="ghost"
                         size="sm"
                         onClick={() => addPartner(goalIndex)}
-                        className="text-purple-400 hover:text-purple-300 hover:bg-purple-500/10"
+                        className=""
                       >
                         <IconPlus className="w-4 h-4 mr-1" />
                         Add Partner
